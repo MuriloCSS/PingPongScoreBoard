@@ -4,13 +4,23 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import br.edu.ifsp.scl.sc3038467.pingpongscoreboard.ui.theme.PingPongScoreBoardTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,8 +30,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             PingPongScoreBoardTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    PingPongScore(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -31,17 +40,58 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun PingPongScore(modifier: Modifier = Modifier) {
+    Column(
+        modifier = Modifier.fillMaxSize().padding(16.dp).safeDrawingPadding()
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth().weight(1f)
+        ) {
+            Column(modifier = Modifier.fillMaxSize().weight(1f)) {
+
+                Text(text ="Jogador A", fontSize = 32.sp, modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 42.dp)
+                )
+
+                Button({}, modifier = Modifier
+                    .width(128.dp)
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 256.dp))
+                {
+                    Text("+1 ponto")
+                }
+            }
+            Column(modifier = Modifier.fillMaxSize().weight(1f)) {
+                Text(text ="Jogador B", fontSize = 32.sp, modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 42.dp)
+                )
+
+                Button({}, modifier = Modifier
+                    .width(128.dp)
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 256.dp))
+                {
+                    Text("+1 ponto")
+                }
+            }
+        }
+        Button({}, modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+
+
+        ) {
+            Text("Reiniciar Partida")
+        }
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun PingPongScorePreview() {
     PingPongScoreBoardTheme {
-        Greeting("Android")
+        PingPongScore()
     }
 }
