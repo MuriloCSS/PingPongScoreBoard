@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import br.edu.ifsp.scl.sc3038467.pingpongscoreboard.ui.theme.PingPongScoreBoardTheme
 
 class MainActivity : ComponentActivity() {
@@ -44,10 +45,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun PingPongScore(modifier: Modifier = Modifier) {
-    var pontosA by remember {mutableStateOf(0)}
-    var pontosB by remember {mutableStateOf(0)}
-
+fun PingPongScore(modifier: Modifier = Modifier, viewModel: PingPongViewModel = viewModel()) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp).safeDrawingPadding()
     ) {
@@ -61,14 +59,14 @@ fun PingPongScore(modifier: Modifier = Modifier) {
                     .padding(top = 42.dp)
                 )
 
-                Text(text = "$pontosA", fontSize = 64.sp ,modifier = Modifier
+                Text(text = "${viewModel.pontosA}", fontSize = 64.sp ,modifier = Modifier
                     .padding(top = 64.dp)
                     .align(Alignment.CenterHorizontally)
 
                 )
 
                 Button({
-                    pontosA++
+                    viewModel.addPontoA()
                 }, modifier = Modifier
                     .width(128.dp)
                     .align(Alignment.CenterHorizontally)
@@ -84,14 +82,14 @@ fun PingPongScore(modifier: Modifier = Modifier) {
                     .padding(top = 42.dp)
                 )
 
-                Text(text = "$pontosB", fontSize = 64.sp ,modifier = Modifier
+                Text(text = "${viewModel.pontosB}", fontSize = 64.sp ,modifier = Modifier
                     .padding(top = 64.dp)
                     .align(Alignment.CenterHorizontally)
 
                 )
 
                 Button({
-                    pontosB++
+                    viewModel.addPontoB()
                 }, modifier = Modifier
                     .width(128.dp)
                     .align(Alignment.CenterHorizontally)
@@ -102,8 +100,7 @@ fun PingPongScore(modifier: Modifier = Modifier) {
             }
         }
         Button({
-            pontosA = 0
-            pontosB = 0
+            viewModel.resetJogo()
         }, modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
