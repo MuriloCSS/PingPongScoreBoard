@@ -4,26 +4,30 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class PingPongViewModel : ViewModel(){
 
-    var pontosA by mutableStateOf(0)
-        private set
+    private val _pontosA = MutableStateFlow(0)
+    val pontosA: StateFlow<Int> = _pontosA.asStateFlow()
 
-    var pontosB by mutableStateOf(0)
-        private set
+    private val _pontosB = MutableStateFlow(0)
+    val pontosB: StateFlow<Int> = _pontosB.asStateFlow()
+
 
     fun addPontoA(){
-        pontosA++
+        _pontosA.value++
     }
 
     fun addPontoB(){
-        pontosB++
+        _pontosB.value++
     }
 
     fun resetJogo(){
-        pontosA = 0
-        pontosB = 0
+        _pontosA.value = 0
+        _pontosB.value = 0
     }
 
 }

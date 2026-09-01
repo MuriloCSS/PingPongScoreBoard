@@ -16,6 +16,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,6 +47,10 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun PingPongScore(modifier: Modifier = Modifier, viewModel: PingPongViewModel = viewModel()) {
+
+    val pontosA by viewModel.pontosA.collectAsState()
+    val pontosB by viewModel.pontosB.collectAsState()
+
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp).safeDrawingPadding()
     ) {
@@ -59,7 +64,7 @@ fun PingPongScore(modifier: Modifier = Modifier, viewModel: PingPongViewModel = 
                     .padding(top = 42.dp)
                 )
 
-                Text(text = "${viewModel.pontosA}", fontSize = 64.sp ,modifier = Modifier
+                Text(text = "${pontosA}", fontSize = 64.sp ,modifier = Modifier
                     .padding(top = 64.dp)
                     .align(Alignment.CenterHorizontally)
 
@@ -82,7 +87,7 @@ fun PingPongScore(modifier: Modifier = Modifier, viewModel: PingPongViewModel = 
                     .padding(top = 42.dp)
                 )
 
-                Text(text = "${viewModel.pontosB}", fontSize = 64.sp ,modifier = Modifier
+                Text(text = "${pontosB}", fontSize = 64.sp ,modifier = Modifier
                     .padding(top = 64.dp)
                     .align(Alignment.CenterHorizontally)
 
