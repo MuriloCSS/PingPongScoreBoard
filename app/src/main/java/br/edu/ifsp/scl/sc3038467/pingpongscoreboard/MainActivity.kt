@@ -16,6 +16,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,6 +45,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun PingPongScore(modifier: Modifier = Modifier) {
+    var pontosA by remember {mutableStateOf(0)}
+    var pontosB by remember {mutableStateOf(0)}
+
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp).safeDrawingPadding()
     ) {
@@ -54,30 +61,50 @@ fun PingPongScore(modifier: Modifier = Modifier) {
                     .padding(top = 42.dp)
                 )
 
-                Button({}, modifier = Modifier
+                Text(text = "$pontosA", fontSize = 64.sp ,modifier = Modifier
+                    .padding(top = 64.dp)
+                    .align(Alignment.CenterHorizontally)
+
+                )
+
+                Button({
+                    pontosA++
+                }, modifier = Modifier
                     .width(128.dp)
                     .align(Alignment.CenterHorizontally)
-                    .padding(top = 256.dp))
+                    .padding(top = 96.dp))
                 {
                     Text("+1 ponto")
                 }
             }
             Column(modifier = Modifier.fillMaxSize().weight(1f)) {
+
                 Text(text ="Jogador B", fontSize = 32.sp, modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 42.dp)
                 )
 
-                Button({}, modifier = Modifier
+                Text(text = "$pontosB", fontSize = 64.sp ,modifier = Modifier
+                    .padding(top = 64.dp)
+                    .align(Alignment.CenterHorizontally)
+
+                )
+
+                Button({
+                    pontosB++
+                }, modifier = Modifier
                     .width(128.dp)
                     .align(Alignment.CenterHorizontally)
-                    .padding(top = 256.dp))
+                    .padding(top = 96.dp))
                 {
                     Text("+1 ponto")
                 }
             }
         }
-        Button({}, modifier = Modifier
+        Button({
+            pontosA = 0
+            pontosB = 0
+        }, modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
 
